@@ -12,6 +12,9 @@ export default function Title({name}: TitleProps) {
 
 const s = StyleSheet.create({
   title: {
-
+    textAlign: "center",
+    color: "#9900ff",
+    fontWeight: "bold",
+    fontSize: 15
   }
-});
+})
