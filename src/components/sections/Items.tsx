@@ -14,6 +14,6 @@ export default function Items() {
     }, [])
     
     return <Container>
-        {allItems.length > 0 && allItems.map((item: Item) => <ShowItem item={item} />)}
+        {allItems.length > 0 && allItems.map((item: Item) => <ShowItem key={item.id} item={item} />)}
     </Container>
 }
