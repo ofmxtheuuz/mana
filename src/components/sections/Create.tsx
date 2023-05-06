@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
+import {StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity, Alert} from "react-native";
 import { useState } from "react";
 import ItensRepository from "../../repositories/ItensRepository";
 
@@ -7,10 +7,17 @@ export default function Create() {
   const [title, setTitle] = useState<string>("")
   const [description, setDescription] = useState<string>("")
 
-  const submit = async () => {
+  const submit = () => {
     if(title.length > 0 && description.length > 2) {  
       console.log(`Formulário recebido: título: ${title}, descrição: ${description}`)
-      await ItensRepository.addItem(title, description)
+      ItensRepository.addItem(title, description).then(() => {
+        Alert.alert("Sucesso ✅", "O item foi cadastrado com sucesso!")
+        setTitle("")
+        setDescription("")
+      }).catch((err) => {
+        console.log(err)
+        Alert.alert("Ocorreu um erro 😭", "Tente novamente mais tarde ou contate um administrador!")
+      })
     }
   }
 

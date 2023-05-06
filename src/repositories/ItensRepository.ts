@@ -7,8 +7,8 @@ class ItensRepository {
   }
   async addItem(title: string, description: string) {
     let actuallyItens: Array<Item> = JSON.parse((await storage.getItem("mana-itens")) || "[]")
-    actuallyItens.push(new Item(title, description))
-    console.log(actuallyItens)
+    const item: Item = new Item(title, description)
+    actuallyItens.push(item)
     await storage.setItem("mana-itens", JSON.stringify(actuallyItens))
   }
   async changeChecked(id: string) {
