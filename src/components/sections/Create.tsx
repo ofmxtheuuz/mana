@@ -1,14 +1,16 @@
 import { StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
 import { useState } from "react";
+import ItensRepository from "../../repositories/ItensRepository";
 
 export default function Create() {
 
   const [title, setTitle] = useState<string>("")
   const [description, setDescription] = useState<string>("")
 
-  const submit = () => {
+  const submit = async () => {
     if(title.length > 0 && description.length > 2) {  
       console.log(`Formulário recebido: título: ${title}, descrição: ${description}`)
+      await ItensRepository.addItem(title, description)
     }
   }
 
