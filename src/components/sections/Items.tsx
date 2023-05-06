@@ -1,19 +1,34 @@
-﻿import ItensRepository from "../../repositories/ItensRepository";
-import {useEffect, useState} from "react";
-import Item from "../../models/Item";
-import {Alert} from "react-native";
+﻿import Item from "../../models/Item";
+import {StyleSheet, TouchableOpacity} from "react-native";
 import Container from "../Container";
 import ShowItem from "../ShowItem";
+import Ubuntu from "../Ubuntu";
 
-export default function Items() {
-    const [allItems, setItems] = useState<Item[]>([])
-    useEffect(() => {
-        ItensRepository.getItems().then((result: Item[]) => setItems(result)).catch(() => {
-            Alert.alert("Ocorreu um erro 😭", "Tente novamente mais tarde ou contate um administrador!")
-        })
-    }, [])
+interface ItemsProps {
+    items: Item[]
+    handleUpdate: any
+    clear: any
+}
+
+export default function Items({items, handleUpdate, clear}: ItemsProps) {
+    
+    const checkedItems = items.filter((item: Item) => {
+        if(item.isChecked) return item
+    })
+    const uncheckedItems = items.filter((item: Item) => {
+        if(!item.isChecked) return item
+    })
     
     return <Container>
-        {allItems.length > 0 && allItems.map((item: Item) => <ShowItem key={item.id} item={item} />)}
+        <TouchableOpacity onPress={clear}><Ubuntu style={s.clear}>Excluir todos</Ubuntu></TouchableOpacity>
+        {uncheckedItems.length > 0 && uncheckedItems.map((item: Item) => <ShowItem handleUpdate={handleUpdate} key={item.id} item={item} />)}
+        {checkedItems.length > 0 && checkedItems.map((item: Item) => <ShowItem handleUpdate={handleUpdate} key={item.id} item={item} />)}
     </Container>
 }
+
+const s = StyleSheet.create({
+    clear: {
+        color: "#9900ff",
+        marginBottom: 5
+    }
+})

@@ -1,4 +1,5 @@
 import { Text, StyleSheet } from "react-native"
+import Ubuntu from "./Ubuntu";
 
 interface TitleProps {
   name: string

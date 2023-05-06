@@ -1,28 +1,27 @@
 ﻿import Item from "../models/Item";
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, View} from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import ItensRepository from "../repositories/ItensRepository";
+import Ubuntu from "./Ubuntu";
 
 interface ShowItemProps {
     item: Item
+    handleUpdate: any
 }
 
-export default function ShowItem({item}: ShowItemProps) {
+export default function ShowItem({item, handleUpdate}: ShowItemProps) {
     
-    const updateItem = (id: string) => {
-        ItensRepository.changeChecked(id)
-    }
+
     
     return <View style={s.box} >
         <View>
-            <Text style={{color: "rgba(153,0,255,0.5)"}}>
+            <Ubuntu style={{color: "rgba(153,0,255,0.5)"}}>
                 {item.title}
-            </Text>
-            <Text style={s.description}>
-                {item.description.slice(0, 60)}
-            </Text>
+            </Ubuntu>
+            <Ubuntu style={s.description}>
+                {item.description}
+            </Ubuntu>
         </View>
-        {item.isChecked ? <Icon onPress={() => {updateItem(item.id)}} name="check-square-o" size={30} color="purple" /> : <Icon onPress={() => {updateItem(item.id)}} name="square-o" size={30} color="purple" />}
+        {item.isChecked ? <Icon onPress={() => {handleUpdate(item.id)}} name="check-square-o" size={30} color="purple" /> : <Icon onPress={() => {handleUpdate(item.id)}} name="square-o" size={30} color="purple" />}
         
 
     </View>

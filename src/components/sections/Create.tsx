@@ -1,37 +1,19 @@
-import {StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity, Alert} from "react-native";
-import { useState } from "react";
-import ItensRepository from "../../repositories/ItensRepository";
-
-export default function Create() {
-
-  const [title, setTitle] = useState<string>("")
-  const [description, setDescription] = useState<string>("")
-
-  const submit = () => {
-    if(title.length > 0 && description.length > 2) {  
-      console.log(`Formulário recebido: título: ${title}, descrição: ${description}`)
-      ItensRepository.addItem(title, description).then(() => {
-        Alert.alert("Sucesso ✅", "O item foi cadastrado com sucesso!")
-        setTitle("")
-        setDescription("")
-      }).catch((err) => {
-        console.log(err)
-        Alert.alert("Ocorreu um erro 😭", "Tente novamente mais tarde ou contate um administrador!")
-      })
-    }
-  }
+import {StyleSheet, View, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
+import Ubuntu from "../Ubuntu";
+export default function Create({handleSubmit, setTitle, setDescription, title, description}: any) {
+  
 
   return <View style={s.box}>
-    <Text style={s.title}>
+    <Ubuntu style={s.title}>
       Criar item
-    </Text>
+    </Ubuntu>
     <SafeAreaView>
-      <TextInput style={s.input} placeholder="Título do item" placeholderTextColor={"#FFFFFF"} onChangeText={(txt: string) => setTitle(txt)}/>
-      <TextInput style={s.input} placeholder="Descrição do item" placeholderTextColor={"#FFFFFF"} onChangeText={(txt: string) => setDescription(txt)}/>
-      <TouchableOpacity style={s.button} onPress={submit}>
-        <Text style={{textAlign: "center", color: "#FFF"}}>
+      <TextInput style={s.input} placeholder="Título do item" placeholderTextColor={"#FFFFFF"} value={title} onChangeText={(txt: string) => setTitle(txt)}/>
+      <TextInput style={s.input} placeholder="Descrição do item" placeholderTextColor={"#FFFFFF"} value={description} onChangeText={(txt: string) => setDescription(txt)}/>
+      <TouchableOpacity style={s.button} onPress={handleSubmit}>
+        <Ubuntu style={{textAlign: "center", color: "#FFF"}}>
           Salvar
-        </Text>
+        </Ubuntu>
       </TouchableOpacity>
     </SafeAreaView>
   </View>
