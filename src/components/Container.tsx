@@ -9,6 +9,6 @@ export default function Container({children}: any) {
 
 const s = StyleSheet.create({
   container: {
-    
+    margin: 15,
   }
 })

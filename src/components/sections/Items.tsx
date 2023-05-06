@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import Item from "../../models/Item";
 import {Alert} from "react-native";
 import Container from "../Container";
+import ShowItem from "../ShowItem";
 
 export default function Items() {
     const [allItems, setItems] = useState<Item[]>([])
@@ -13,6 +14,6 @@ export default function Items() {
     }, [])
     
     return <Container>
-        
+        {allItems.length > 0 && allItems.map((item: Item) => <ShowItem item={item} />)}
     </Container>
 }
