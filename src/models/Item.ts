@@ -12,7 +12,7 @@ export default class Item {
     title: string,
     description: string
     ) {
-      this.id = "4328473824928"
+      this.id = v4()
       this.title = title
       this.description = description
       this.isChecked = false   

@@ -5,6 +5,9 @@ class ItensRepository {
   async clear() {
     await storage.setItem("mana-itens", "[]")
   }
+  async getItems() {
+    return JSON.parse(await storage.getItem("mana-itens") || "[]")
+  }
   async addItem(title: string, description: string) {
     let actuallyItens: Array<Item> = JSON.parse((await storage.getItem("mana-itens")) || "[]")
     const item: Item = new Item(title, description)
